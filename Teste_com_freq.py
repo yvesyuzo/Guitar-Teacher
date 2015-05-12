@@ -14,7 +14,7 @@ import numpy as np
 chunk = 2048
 
 # open up a wave
-wf = wave.open('1980.wav', 'rb')
+wf = wave.open('gmajor.wav', 'rb')
 swidth = wf.getsampwidth()
 RATE = wf.getframerate()
 # use a Blackman window
@@ -27,10 +27,13 @@ stream = p.open(format =
                 rate = RATE,
                 output = True)
 
+
 # read some data
-data = wf.readframes(chunk) 
+data = wf.readframes (int(chunk/2)) 
 # play stream and find the frequency of each chunk
+print(len(data), chunk*swidth)
 while len(data) == chunk*swidth:
+    
     # write data out to the audio stream
     stream.write(data)
     # unpack the data and times by the hamming window
@@ -51,7 +54,8 @@ while len(data) == chunk*swidth:
         thefreq = which*RATE/chunk
         print ("The freq is %f Hz." % (thefreq))
     # read some more data
-    data = wf.readframes(chunk)
+    data = wf.readframes (int(chunk/2))
+
 if data:
     stream.write(data)
 stream.close()
