@@ -14,7 +14,7 @@ import numpy as np
 chunk = 2048
 
 # open up a wave
-wf = wave.open('gmajor.wav', 'rb')
+wf = wave.open('cchord.wav', 'rb')
 swidth = wf.getsampwidth()
 RATE = wf.getframerate()
 # use a Blackman window
@@ -37,8 +37,7 @@ while len(data) == chunk*swidth:
     # write data out to the audio stream
     stream.write(data)
     # unpack the data and times by the hamming window
-    indata = np.array(wave.struct.unpack("%dh"%(len(data)/swidth),\
-                                         data))*window
+    indata = np.array(wave.struct.unpack("%dh"%(len(data)/swidth),  data))*window
     # Take the fft and square each value
     fftData=abs(np.fft.rfft(indata))**2
     # find the maximum
