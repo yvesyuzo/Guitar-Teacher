@@ -63,7 +63,7 @@ wf.writeframes(b''.join(frames))
 wf.close()
 
 # open up a wave
-wf = wave.open('La.wav', 'rb')
+wf = wave.open('Tuning.wav', 'rb')
 swidth = wf.getsampwidth()
 print('swidth',swidth)
 RATE = wf.getframerate()
@@ -116,18 +116,60 @@ while len(data) == int(CHUNK)*swidth:
 #    except:
 #        indata = None        
 #        print ("Not enough data")
-    
+   
 print('done')
 
-print (type(freqs))
+print('As freqs são:')
+for i in freqs:
+    print(i)
 
-plt.plot(freqs[int(len(freqs)*0.1):int(len(freqs)*0.9)])
+print("O len das freqs é: ", len(freqs))
+print (type(freqs))
+print('O tipo de cada freq é: ', type(freqs[2]))
+
+#plt.plot(freqs[int(len(freqs)*0.1):int(len(freqs)*0.9)])
+plt.plot(freqs)
 plt.grid()
 plt.show()
 
 #plt.plot(freqs)
 #plt.grid()
 #plt.show()
+
+'''
+Dicionário com as 6 notas da afinação padrão de guitarra como keys e 3 numeros 
+    como values onde o segundo valor é a frequencia exata e os outros dois são a 
+    margem de erro de +-1 com relação a nota seguinte.
+    
+    exemplo: DS4 = 311, E4 = 329, F4 = 349| portanto {'E4':[(311+1), 329, (349-1)]} 
+'''
+notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
+              'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86]}
+
+
+'''
+Função que recebe frequencias e retorna as notas equivalentes
+ENTRADAS: 
+            lista_de_freqs = lista com frequencias
+            notas_freq     = dicionario com notas(keys)  e suas frequencias(values) com margem de erro
+SAÍDAS:
+            notas = lista com as notas na ordem de aparição
+'''
+def conversor_freq_nota(lista_de_freqs, notas_freq):
+    
+    notas = []
+    for x in lista_de_freqs:
+        
+        notas_temp = [i for i in notas_freq if int(x) in range(notas_freq[i][0],notas_freq[i][2])]
+        if notas_temp != []:
+            notas.append(notas_temp)
+        
+    return notas
+
+print(conversor_freq_nota(freqs, notas_freq))
+
+
+
 
 if data:
     stream.write(data)

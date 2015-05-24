@@ -3,6 +3,7 @@
 
 // Notas que devem ser tocadas ordenadamente;
 // arrays de cada compasso da musica
+
 int compasso1[] = {
  NOTE_D3, NO_SOUND, NOTE_F3, NO_SOUND, NOTE_G3, NO_SOUND, NOTE_D3,
  NO_SOUND, NOTE_F3, NO_SOUND, NOTE_GS3, NOTE_G3, NO_SOUND,
@@ -23,6 +24,9 @@ int tempoNotas[] ={
 };
 const int compasso = 2300; // Altera o compasso da música
 void setup(){
+  
+  int melodia[] = compasso1
+  
   for (int Nota = 0; Nota <sizeof(tempoNotas); Nota++){//o número 7 indica quantas notas tem a nossa matriz.
     int tempo = compasso/tempoNotas[Nota]; //Tempo = compasso dividido pela indicação da matriz tempoNotas.
     tone(11, melodia[Nota],tempo); //Toca a nota indicada pela matriz melodia durante o tempo.
