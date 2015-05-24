@@ -19,14 +19,12 @@ import time
 import matplotlib.pyplot as plt
 from Testes import*
 
-conversor_de_frequencia = {'F':range(339, 359)}
-
 CHUNK = 512
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 8192
-RECORD_SECONDS = 0
-WAVE_OUTPUT_FILENAME = "0.wav"
+RECORD_SECONDS = 10
+WAVE_OUTPUT_FILENAME = "T3.wav"
 
 p = pyaudio.PyAudio()
 
@@ -63,7 +61,7 @@ wf.writeframes(b''.join(frames))
 wf.close()
 
 # open up a wave
-wf = wave.open('Tuning.wav', 'rb')
+wf = wave.open('T3.wav', 'rb')
 swidth = wf.getsampwidth()
 print('swidth',swidth)
 RATE = wf.getframerate()
@@ -144,8 +142,10 @@ Dicionário com as 6 notas da afinação padrão de guitarra como keys e 3 numer
     exemplo: DS4 = 311, E4 = 329, F4 = 349| portanto {'E4':[(311+1), 329, (349-1)]} 
 '''
 notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
-              'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86]}
+              'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86], 'A4': [416, 440, 465]}
 
+notas_SevenNationArmy = {'E3': [157,165,175],'G3': [186,196,207],'D3': [140,147,155],
+                         'C3': [127,131,135],'B2': [120,123,126]}
 
 '''
 Função que recebe frequencias e retorna as notas equivalentes
