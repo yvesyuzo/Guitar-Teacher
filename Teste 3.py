@@ -24,9 +24,9 @@ testd = []
 CHUNK = 2048
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 44100
-RECORD_SECONDS = 0
-WAVE_OUTPUT_FILENAME = "Test BETA 3.wav"
+RATE = 44100 # de acordo com Nyquist é possivel ler
+RECORD_SECONDS = 5
+WAVE_OUTPUT_FILENAME = "Versão BETA 1.0.wav"
 
 p = pyaudio.PyAudio()
 
