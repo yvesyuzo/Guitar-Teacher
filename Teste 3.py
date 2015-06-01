@@ -11,7 +11,7 @@ Created on Wed May 13 07:28:37 2015
 
 @author: Yves Yuzo
 """
-
+import time
 import pyaudio
 import wave
 import numpy as np
@@ -26,7 +26,7 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = 0
-WAVE_OUTPUT_FILENAME = "0.wav"
+WAVE_OUTPUT_FILENAME = "Test BETA 3.wav"
 
 p = pyaudio.PyAudio()
 
@@ -39,6 +39,11 @@ print("* recording")
 time.sleep(1)
 print ('inicio')
 frames = []
+
+
+'''
+Grava
+'''
 
 for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
     data = stream.read(CHUNK)
@@ -54,8 +59,14 @@ stream.close()
 p.terminate()
 
 
-#LEITURA
 
+
+'''
+Analisa
+'''
+
+#LEITURA
+tempo = time.time()
 wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
 wf.setnchannels(CHANNELS)
 wf.setsampwidth(p.get_sample_size(FORMAT))
@@ -64,7 +75,7 @@ wf.writeframes(b''.join(frames))
 wf.close()
 
 # open up a wave
-wf = wave.open('Tuning.wav', 'rb')
+wf = wave.open('tuning.wav', 'rb')
 swidth = wf.getsampwidth()
 print('swidth',swidth)
 RATE = wf.getframerate()
@@ -84,7 +95,7 @@ stream = p.open(format =
 
 maior_data = 0
 
-
+threshold = 36000000000
 
 # read some data
 data = wf.readframes (int(CHUNK)) 
@@ -102,37 +113,35 @@ while len(data) == int(CHUNK)*swidth:
     print("Indata ok")
     
     # Take the fft and square each value
-    fftData=abs(np.fft.rfft(indata))**2
+    #
+    fftData= abs(np.fft.rfft(indata))**2# Pega o eixo imaginario e o real e retorna a magnitude(hipotenusa, amplitude)
     # find the maximum
     which = fftData[1:].argmax() + 1
 
-    print("fft data: ", fftData[which])
+#    print("fft data: ", fftData[which])
     
     
-     
-    if fftData[which] > maior_data:
-        maior_data = fftData[which]
-    
-#    if fftData[which]<threshold:
+    if fftData[which] > threshold:
+            #desconsidere frequencias
+            
+        # use quadratic interpolation around the max
+        if which != len(fftData)-1:
+            y0,y1,y2 = np.log(fftData[which-1:which+2:])
+            x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
+            # find the frequency and output it
+            thefreq = (which+x1)*RATE/CHUNK
+            print ("The freq is %f Hz." % (thefreq))
+            freqs.append(thefreq)
+        else:
+            thefreq = which*RATE/CHUNK
+            print ("The freq is %f Hz." % (thefreq))
+            freqs.append(thefreq)
+        # read some more data
+        data = wf.readframes (int(CHUNK))
+        print ("------chunk ok ------")
         
-        #desconsidere frequencias
-    
-    
-    # use quadratic interpolation around the max
-    if which != len(fftData)-1:
-        y0,y1,y2 = np.log(fftData[which-1:which+2:])
-        x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
-        # find the frequency and output it
-        thefreq = (which+x1)*RATE/CHUNK
-        print ("The freq is %f Hz." % (thefreq))
-        freqs.append(thefreq)
-    else:
-        thefreq = which*RATE/CHUNK
-        print ("The freq is %f Hz." % (thefreq))
-        freqs.append(thefreq)
-    # read some more data
     data = wf.readframes (int(CHUNK))
-    print ("------chunk ok ------")
+        
     
     testd.append(fftData[1])    
 #    except:
@@ -206,6 +215,8 @@ print(conversor_freq_nota(freqs, notas_freq))
 
 
 print('maior data', maior_data)
+
+print(tempo)
 
 if data:
     stream.write(data)

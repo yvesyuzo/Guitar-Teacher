@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri May 22 08:21:41 2015
-
-@author: Yves Yuzo
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 13 07:28:37 2015
+Created on Wed May 27 08:57:22 2015
 
 @author: Yves Yuzo
 """
@@ -21,11 +14,11 @@ from Testes import*
 
 testd = []
 
-CHUNK = 2048
+CHUNK = 512 #ammount of data each chunk of the rate will have
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 44100
-RECORD_SECONDS = 0
+RATE = 8192 #Samples per second
+RECORD_SECONDS = 0.1
 WAVE_OUTPUT_FILENAME = "0.wav"
 
 p = pyaudio.PyAudio()
@@ -41,6 +34,7 @@ print ('inicio')
 frames = []
 
 for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+                    #RATE/CHUNK is the number of chunks per second
     data = stream.read(CHUNK)
     print('data:',len(data))
     print('type data ',type(data))
@@ -64,7 +58,7 @@ wf.writeframes(b''.join(frames))
 wf.close()
 
 # open up a wave
-wf = wave.open('Tuning.wav', 'rb')
+wf = wave.open('0.wav', 'rb')
 swidth = wf.getsampwidth()
 print('swidth',swidth)
 RATE = wf.getframerate()
@@ -81,17 +75,11 @@ stream = p.open(format =
                 output = True)
 
 
-
-maior_data = 0
-
-
-
 # read some data
 data = wf.readframes (int(CHUNK)) 
 # play stream and find the frequency of each chunk
 print(len(data), CHUNK*swidth)
 freqs=[]
-
 while len(data) == int(CHUNK)*swidth:
     
     # write data out to the audio stream
@@ -105,17 +93,6 @@ while len(data) == int(CHUNK)*swidth:
     fftData=abs(np.fft.rfft(indata))**2
     # find the maximum
     which = fftData[1:].argmax() + 1
-
-    print("fft data: ", fftData[which])
-    
-    
-     
-    if fftData[which] > maior_data:
-        maior_data = fftData[which]
-    
-#    if fftData[which]<threshold:
-        
-        #desconsidere frequencias
     
     
     # use quadratic interpolation around the max
@@ -134,14 +111,13 @@ while len(data) == int(CHUNK)*swidth:
     data = wf.readframes (int(CHUNK))
     print ("------chunk ok ------")
     
-    testd.append(fftData[1])    
+ 
 #    except:
 #        indata = None        
 #        print ("Not enough data")
-#    plt.plot((fftData))
-#    plt.ylabel("dividido por 2")
-#    plt.show()
-#    plt.close()
+    plt.plot()
+    plt.show()
+    plt.close()
 print('done')
 
 print('As freqs são:')
@@ -203,12 +179,11 @@ def conversor_freq_nota(lista_de_freqs, notas_freq):
 
 print(conversor_freq_nota(freqs, notas_freq))
 
+print(testd)
+print('test: ', conversor_freq_nota(testd, notas_freq))
 
-
-print('maior data', maior_data)
 
 if data:
     stream.write(data)
 stream.close()
 p.terminate()
-

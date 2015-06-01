@@ -15,7 +15,7 @@ def plotSpectru(y,Fs):
  k = arange(n)
  T = n/Fs
  frq = k/T # two sides frequency range
- frq = int(frq[range(n/2)]) # one side frequency range
+ frq = (frq[range(n/2)]) # one side frequency range
 
  Y = fft(y)/n # fft computing and normalization
  Y = Y[range(n/2)]
@@ -26,7 +26,7 @@ def plotSpectru(y,Fs):
 
 Fs = 44100;  # sampling rate
 
-rate,data=read('Riff2.wav')
+rate,data=read('tuning.wav')
 y=data[::1]
 lungime=len(y)
 timp=len(y)/44100.
