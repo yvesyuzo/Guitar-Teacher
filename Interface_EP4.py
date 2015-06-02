@@ -15,12 +15,6 @@ class SPFC:
         self.canvas.pack()
 
 
-
-        self.canvas.create_text(250, 250, text='S P F C',
-                                font=('Arial','100','bold'), 
-                                anchor=CENTER, fill= x)
-    
-
         self.canvas.create_text(250, 250, text='E4',font=('Arial','100','bold'), anchor=CENTER, fill= x)
 
         
