@@ -4,7 +4,7 @@ from tkinter import *
 x = 'purple'
 
 class SPFC:
- 
+    
     def __init__(self,raiz):
         self.canvas = Canvas(raiz, width=500, height=500, bg='dodgerblue') 
         self.canvas.pack()
@@ -13,6 +13,7 @@ class SPFC:
         self.canvas.create_text(250, 250, text='S P F C',
                                 font=('Arial','100','bold'), 
                                 anchor=CENTER, fill= x)
+    
         
 
 class Janela:
