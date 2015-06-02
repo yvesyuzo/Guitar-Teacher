@@ -9,9 +9,9 @@ x = 'red'
 
 class SPFC:
     def __init__(self,raiz):
-        self.canvas = Canvas(raiz, width=500, height=500, bg="blue") 
+        self.canvas = Canvas(raiz, width=700, height=700, bg="blue") 
         self.canvas.pack()
-        self.canvas.create_text(250, 250, text='G',font=('Arial','100','bold'), anchor=CENTER, fill= x)
+        self.canvas.create_text(350, 350, text='G',font=('Arial','100','bold'), anchor=CENTER, fill= x)
         
 
 class Janela:
