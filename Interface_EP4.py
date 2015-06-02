@@ -1,24 +1,23 @@
 
 from tkinter import *
 
-x = 'purple'
+x = 'red'
+
+#Estado = 0
+
+
 
 class SPFC:
- 
     def __init__(self,raiz):
-        self.canvas = Canvas(raiz, width=500, height=500, bg='dodgerblue') 
+        self.canvas = Canvas(raiz, width=500, height=500, bg="blue") 
         self.canvas.pack()
-
-
-        self.canvas.create_text(250, 250, text='S P F C',
-                                font=('Arial','100','bold'), 
-                                anchor=CENTER, fill= x)
+        self.canvas.create_text(250, 250, text='E4',font=('Arial','100','bold'), anchor=CENTER, fill= x)
         
 
 class Janela:
     def __init__(self,toplevel):
         self.fr1 = Frame(toplevel)
-        self.fr1.pack()
+        self.fr1.place(x=400, y=250)
         
         self.botao1 = Button(self.fr1,text='Notas')
         self.botao1['fg']='black'
@@ -34,17 +33,20 @@ class Janela:
         self.botao2['width']=30
         self.botao2.pack()
         
-        self.botao1.bind("<Motion>", self.muda_de_cor)
-        self.botao1.bind("<Leave>", self.muda_de_cor)
-        self.botao1.bind("<Button-1>", self.abre_nova_janela)
+        self.botao1.bind("<Motion>", self.muda_de_cor)                 #Quando o mause está em cima do botão1
+        self.botao1.bind("<Leave>", self.muda_de_cor)                  #Quando o mouse sai de cima do botão1
+        self.botao1.bind("<Button-1>", self.apagar_criar_novo_frame)          #Quando o botão1 é clicado
 
-        self.botao2.bind("<Motion>",self.muda_de_cor1)
-        self.botao2.bind("<Leave>",self.muda_de_cor1)
-        self.botao2.bind("<Button-1>", self.abre_nova_janela)
+        self.botao2.bind("<Motion>",self.muda_de_cor1)                 #Quando o mause está em cima do botão2
+        self.botao2.bind("<Leave>",self.muda_de_cor1)                  #Quando o mouse sai de cima do botão2
+        self.botao2.bind("<Button-1>", self.apagar_criar_novo_frame)          #Quando o botão2 é clicado
         
-    def abre_nova_janela(self,event):
-        instancia = Tk()
-        
+    def apagar_criar_novo_frame(self,event):
+        self.fr1.pack_forget()
+        SPFC(instancia)
+
+
+   
     def muda_de_cor (self,event1):
         if self.botao1['fg']=='black':
             self.botao1['fg']='yellow'
@@ -57,22 +59,10 @@ class Janela:
             self.botao2['fg']='yellow'
         else:
             self.botao2['fg']='black'
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    
+      
 instancia=Tk()
-instancia.geometry('720x480')
+instancia.geometry('1080x720')
 instancia.title ('Guitar Teacher')
 Janela(instancia)
 instancia.mainloop()
