@@ -17,7 +17,7 @@ import wave
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from Testes import*
+
 
 testd = []
 
@@ -25,7 +25,7 @@ CHUNK = 2048
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-RECORD_SECONDS = 0
+RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "0.wav"
 
 p = pyaudio.PyAudio()
@@ -64,7 +64,7 @@ wf.writeframes(b''.join(frames))
 wf.close()
 
 # open up a wave
-wf = wave.open('Tuning.wav', 'rb')
+wf = wave.open('0.wav', 'rb')
 swidth = wf.getsampwidth()
 print('swidth',swidth)
 RATE = wf.getframerate()

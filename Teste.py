@@ -17,7 +17,10 @@ import wave
 import numpy as np
 import matplotlib.pyplot as plt
 
-x = 10
+
+
+
+
 
 def grava_som ():
 
@@ -241,3 +244,24 @@ def conversor_freq_nota(lista_de_freqs, notas_freq):
 
 
 #print(conversor_freq_nota(freqs, notas_freq))
+
+banana = grava_som
+
+print(banana)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
