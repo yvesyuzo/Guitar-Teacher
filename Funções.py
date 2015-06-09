@@ -13,14 +13,14 @@ import time
 import matplotlib.pyplot as plt
 
 
-def grava_som():
+def grava_som(NOME, segundos):
 
     CHUNK = 2048
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
     RATE = 44100
-    RECORD_SECONDS = 5
-    WAVE_OUTPUT_FILENAME = "jovem.wav"
+    RECORD_SECONDS = segundos
+    WAVE_OUTPUT_FILENAME =  str(NOME) + ".wav"
     
     p = pyaudio.PyAudio()
     
@@ -64,5 +64,7 @@ def grava_som():
     wf.close()
 
 
-grava_som()
+grava_som('jovem2', 3)
+
+
 
