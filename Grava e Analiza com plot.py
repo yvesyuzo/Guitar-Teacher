@@ -12,6 +12,7 @@ Created on Wed May 13 07:28:37 2015
 @author: Yves Yuzo
 """
 
+
 import pyaudio
 import wave
 import numpy as np
@@ -19,49 +20,57 @@ import time
 import matplotlib.pyplot as plt
 
 
-testd = []
+#testd = []
+#
+#CHUNK = 2048
+#FORMAT = pyaudio.paInt16
+#CHANNELS = 1
+#RATE = 44100
+#RECORD_SECONDS = 5
+#WAVE_OUTPUT_FILENAME = "0.wav"
+#
+#p = pyaudio.PyAudio()
+#
+#stream = p.open(format=FORMAT,
+#                channels=CHANNELS,
+#                rate=RATE,
+#                input=True,
+#                frames_per_buffer=CHUNK)
+#print("* recording")
+#time.sleep(1)
+#print ('inicio')
+#frames = []
+#
+#for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+#    data = stream.read(CHUNK)
+#    print('data:',len(data))
+#    print('type data ',type(data))
+#    frames.append(data)
+#
+#print('frames:',len(frames))
+#print("* done recording")
+#
+#stream.stop_stream()
+#stream.close()
+#p.terminate()
+#
+#
+#
+#
+##LEITURA
+#
+#wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+#wf.setnchannels(CHANNELS)
+#wf.setsampwidth(p.get_sample_size(FORMAT))
+#wf.setframerate(RATE)
+#wf.writeframes(b''.join(frames))
+#wf.close()
+
 
 CHUNK = 2048
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-RECORD_SECONDS = 5
-WAVE_OUTPUT_FILENAME = "0.wav"
-
-p = pyaudio.PyAudio()
-
-stream = p.open(format=FORMAT,
-                channels=CHANNELS,
-                rate=RATE,
-                input=True,
-                frames_per_buffer=CHUNK)
-print("* recording")
-time.sleep(1)
-print ('inicio')
-frames = []
-
-for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-    data = stream.read(CHUNK)
-    print('data:',len(data))
-    print('type data ',type(data))
-    frames.append(data)
-
-print('frames:',len(frames))
-print("* done recording")
-
-stream.stop_stream()
-stream.close()
-p.terminate()
-
-
-#LEITURA
-
-wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-wf.setnchannels(CHANNELS)
-wf.setsampwidth(p.get_sample_size(FORMAT))
-wf.setframerate(RATE)
-wf.writeframes(b''.join(frames))
-wf.close()
 
 # open up a wave
 wf = wave.open('0.wav', 'rb')
@@ -134,7 +143,7 @@ while len(data) == int(CHUNK)*swidth:
     data = wf.readframes (int(CHUNK))
     print ("------chunk ok ------")
     
-    testd.append(fftData[1])    
+#    testd.append(fftData[1])    
 #    except:
 #        indata = None        
 #        print ("Not enough data")
