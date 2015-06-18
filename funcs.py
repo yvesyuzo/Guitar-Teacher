@@ -12,17 +12,6 @@ import numpy as np
 import time
 
 
-
-#CHUNK = 2048
-#FORMAT = pyaudio.paInt16
-#CHANNELS = 1
-#RATE = 44100
-#p = pyaudio.PyAudio()
-
-
-
-
-
 def grava_som(NOME, segundos):
       
     
@@ -48,9 +37,7 @@ def grava_som(NOME, segundos):
         data = stream.read(CHUNK) #data é do tipo 'bytes' e tem o len = 4096 
 
         frames.append(data)    
-#    print('frames:',len(frames))
-#    print(RATE / CHUNK * RECORD_SECONDS)
-#    print("* done recording")
+
     
     stream.stop_stream()
     stream.close()     #Para de gravar
@@ -108,15 +95,10 @@ def analiza_som (NOME, notas_freq):
         
     while len(data) == int(CHUNK)*swidth:
         
-        # write data out to the audio stream
-        #stream.write(data)
-        # unpack the data and times by the hamming window
-        #try:
+
         indata = np.array(wave.struct.unpack("%dh"%(len(data)/swidth),data))*window
-#        print("Indata ok")
-        
-        # Take the fft and square each value
-        #
+
+
         fftData= abs(np.fft.rfft(indata))**2# Pega o eixo imaginario e o real e retorna a magnitude(hipotenusa, amplitude)
         # find the maximum
         which = fftData[1:].argmax() + 1
@@ -145,16 +127,7 @@ def analiza_som (NOME, notas_freq):
         data = wf.readframes (int(CHUNK))
             
 
-#    print('done')
-#    
-#    print('As freqs são:')
-#    for i in freqs:
-#        print(i)
-#    
-#    print("O len das freqs é: ", len(freqs))
-#    print (type(freqs))
-#    print(freqs)
-    
+
     if data:
         stream.write(data)
     stream.close()
@@ -172,57 +145,24 @@ def analiza_som (NOME, notas_freq):
     
     
     
-
-    
-    
-#def conversor_freq_nota(lista_de_freqs, notas_freq):
-#    
-#    notas = []
-#    for x in lista_de_freqs:
-#        
-#        notas_temp = [i for i in notas_freq if int(x) in range(notas_freq[i][0],notas_freq[i][2])]
-#        if notas_temp != []:
-#            notas.append(notas_temp)
-#        
-#    return notas
-    
 notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
               'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86], 'A4': [416, 440, 465]}
 
 
-#tempo1 = time.time()
-#
-#Teste = grava_som('feroz2', 1)
-#
-#tempo2 = time.time()       
-#    
-#banana = analiza_som('feroz2')
-#print(banana)
-#
-#tempo3 = time.time()
-#
-#batata = conversor_freq_nota (banana, notas_freq)
-#
-#print(batata)
-#
-#tempo4 = time.time()
-#
-#
-#tempo_grava = tempo2 - tempo1
-#tempo_analiza = tempo3 - tempo2
-#tempo_converte = tempo4 - tempo3
-#
-#print('grava som demora ',tempo_grava )
-#print('analiza demora ', tempo_analiza)
-#print('converter demora ', tempo_converte)
-#print('o len de freqs é: ', len(banana))
 
-grava_som ('feroz', 1)
+grava_som ('feroz', 2)
 
 banana =  analiza_som('feroz', notas_freq)
 
-print(banana)
+print('Banana é: ', banana)
 
+if ['D3'] in banana:
+    print('matheus gatinho')
+    
+    
+    
+    
+    
 
 
 
