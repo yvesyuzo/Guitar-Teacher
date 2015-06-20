@@ -214,12 +214,16 @@ SAÍDAS:
 
               'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86], 'A4': [416, 440, 465]}            
 '''
+
+
+
 def conversor_freq_nota(lista_de_freqs, notas_freq):
     
     notas = []
     for x in lista_de_freqs:
         
         notas_temp = [i for i in notas_freq if int(x) in range(notas_freq[i][0],notas_freq[i][2])]
+        
         if notas_temp != []:
             notas.append(notas_temp)
         

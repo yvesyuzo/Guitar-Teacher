@@ -60,7 +60,7 @@ def grava_som(NOME, segundos):
 
 
 
-def analiza_som (NOME, notas_freq):
+def analisa_som (NOME, notas_freq):
 
     CHUNK = 2048
     RATE = 44100 
@@ -123,10 +123,18 @@ def analiza_som (NOME, notas_freq):
 #                print ("The freq is %f Hz." % (thefreq))
                 freqs.append(thefreq)
             # read some more data
-            data = wf.readframes (int(CHUNK))
-#            print ("------chunk ok ------")
+                
+                
+        else:
+            try:
+                freqs.append(thefreq)
             
+            except:
+                pass
+                
+                               
         data = wf.readframes (int(CHUNK))
+            
             
 
 
@@ -140,8 +148,17 @@ def analiza_som (NOME, notas_freq):
     for x in freqs:
         
         notas_temp = [i for i in notas_freq if int(x) in range(notas_freq[i][0],notas_freq[i][2])]
+        
         if notas_temp != []:
+            
             notas.append(notas_temp)
+            
+        for n in notas:
+            
+            if notas[]
+                
+                
+                
         
     return notas
     
@@ -266,9 +283,9 @@ def tela_calibrar():
               
             botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
            
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
         
-            notas = analiza_som ("nao_apagar", notas_freq)
+            notas = analisa_som ("nao_apagar", notas_freq)
             
             if ['E4'] in notas:
                 print('BOA FEROZ')

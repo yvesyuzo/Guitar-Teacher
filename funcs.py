@@ -122,14 +122,19 @@ def analisa_som (NOME, notas_freq):
 #                print ("The freq is %f Hz." % (thefreq))
                 freqs.append(thefreq)
             # read some more data
-
+            
+        else:
+            try:
+                freqs.append(thefreq)
+            
+            except:
+                pass
                 
-            data = wf.readframes (int(CHUNK))
+                               
+        data = wf.readframes (int(CHUNK))
 #            print ("------chunk ok ------")
             
-            
-        data = wf.readframes (int(CHUNK))
-            
+    
 
 
     if data:
@@ -142,8 +147,12 @@ def analisa_som (NOME, notas_freq):
     for x in freqs:
         
         notas_temp = [i for i in notas_freq if int(x) in range(notas_freq[i][0],notas_freq[i][2])]
+        
         if notas_temp != []:
             notas.append(notas_temp)
+            
+        else:
+            notas.append('0')
         
     return [notas, len(freqs)]
     
@@ -155,23 +164,25 @@ notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
 
 #
 grava_som ('feroz', 1)
-#
+
 banana =  analisa_som('feroz', notas_freq)
-#
+
 print('Banana é: ', banana)
 
 if ['D3'] in banana:
     print('matheus gatinho')
     
-    
+#    
 #if __name__ == '__main__':
-#    grava_som ('feroz2', 1)
-#    p = Process(target=analisa_som, args=('feroz', notas_freq))
+#    analisa_som ('feroz2', 1)
+#    p = Process(target = grava_som, args = ('feroz', 1))
 #    p.start()
-#    p.join()    
-#    
-#print('done')    
-#    
+#    p.join()
+
+    
+    
+print('done')    
+    
     
     
     
