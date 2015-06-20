@@ -272,6 +272,8 @@ def tela_calibrar():
             
             if ['E4'] in notas:
                 print('BOA FEROZ')
+                textSurf, textRect = text_objects("E5", smallText)
+                
            
            
             pygame.display.update()

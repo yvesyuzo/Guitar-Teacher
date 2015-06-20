@@ -4,7 +4,8 @@ Created on Tue Jun  9 11:08:30 2015
 
 @author: Yves Yuzo
 """
-
+from multiprocessing import Process
+import os
 
 import pyaudio
 import wave
@@ -58,14 +59,14 @@ def grava_som(NOME, segundos):
 
 
 
-def analiza_som (NOME, notas_freq):
+def analisa_som (NOME, notas_freq):
 
     CHUNK = 2048
     RATE = 44100 
     
     p = pyaudio.PyAudio()    
     
-#    threshold = 36000000000 # amplitude dos ruidos
+    threshold = 36000000000 # amplitude dos ruidos
     threshold = 0
         
     # open up a wave
@@ -121,8 +122,11 @@ def analiza_som (NOME, notas_freq):
 #                print ("The freq is %f Hz." % (thefreq))
                 freqs.append(thefreq)
             # read some more data
+
+                
             data = wf.readframes (int(CHUNK))
 #            print ("------chunk ok ------")
+            
             
         data = wf.readframes (int(CHUNK))
             
@@ -141,7 +145,7 @@ def analiza_som (NOME, notas_freq):
         if notas_temp != []:
             notas.append(notas_temp)
         
-    return notas
+    return [notas, len(freqs)]
     
     
     
@@ -149,21 +153,29 @@ notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
               'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86], 'A4': [416, 440, 465]}
 
 
-
-grava_som ('feroz', 2)
-
-banana =  analiza_som('feroz', notas_freq)
-
+#
+grava_som ('feroz', 1)
+#
+banana =  analisa_som('feroz', notas_freq)
+#
 print('Banana é: ', banana)
 
 if ['D3'] in banana:
     print('matheus gatinho')
     
     
+#if __name__ == '__main__':
+#    grava_som ('feroz2', 1)
+#    p = Process(target=analisa_som, args=('feroz', notas_freq))
+#    p.start()
+#    p.join()    
+#    
+#print('done')    
+#    
     
     
     
-
-
-
-
+    
+    
+    
+    
