@@ -59,7 +59,10 @@ def grava_som(NOME, segundos):
 
 
 
-def analisa_som (NOME, notas_freq):
+def analisa_som (NOME, notas_freq, nota_desejada):
+    
+    cha = []
+    nota_desejada
 
     CHUNK = 2048
     RATE = 44100 
@@ -149,12 +152,20 @@ def analisa_som (NOME, notas_freq):
         notas_temp = [i for i in notas_freq if int(x) in range(notas_freq[i][0],notas_freq[i][2])]
         
         if notas_temp != []:
+            
             notas.append(notas_temp)
             
         else:
             notas.append('0')
+            
+            
+    for n in range(1, (len(notas)-1)):
+            
+        if notas[n] == nota_desejada and notas[n] == notas[n+1] and notas[n] == notas[n-1]:
+                
+            cha.append('true')
         
-    return [notas, len(freqs)]
+    return [cha]
     
     
     
@@ -163,13 +174,18 @@ notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
 
 
 #
-grava_som ('feroz', 1)
+print('inicio')
 
-banana =  analisa_som('feroz', notas_freq)
+grava_som ('feroz', 3)
+
+
+banana =  analisa_som('feroz', notas_freq, ['B3'])
+
 
 print('Banana é: ', banana)
 
-if ['D3'] in banana:
+
+if 'true' in banana[0]:
     print('matheus gatinho')
     
 #    

@@ -60,14 +60,17 @@ def grava_som(NOME, segundos):
 
 
 
-def analisa_som (NOME, notas_freq):
+def analisa_som (NOME, notas_freq, nota_desejada):
+    
+    cha = []
+    nota_desejada
 
     CHUNK = 2048
     RATE = 44100 
     
     p = pyaudio.PyAudio()    
     
-#    threshold = 36000000000 # amplitude dos ruidos
+    threshold = 36000000000 # amplitude dos ruidos
     threshold = 0
         
     # open up a wave
@@ -123,8 +126,7 @@ def analisa_som (NOME, notas_freq):
 #                print ("The freq is %f Hz." % (thefreq))
                 freqs.append(thefreq)
             # read some more data
-                
-                
+            
         else:
             try:
                 freqs.append(thefreq)
@@ -134,8 +136,9 @@ def analisa_som (NOME, notas_freq):
                 
                                
         data = wf.readframes (int(CHUNK))
+#            print ("------chunk ok ------")
             
-            
+    
 
 
     if data:
@@ -153,14 +156,17 @@ def analisa_som (NOME, notas_freq):
             
             notas.append(notas_temp)
             
-        for n in notas:
+        else:
+            notas.append('0')
             
-            if notas[]
+            
+    for n in range(1, (len(notas)-1)):
+            
+        if notas[n] == nota_desejada and notas[n] == notas[n+1] and notas[n] == notas[n-1]:
                 
-                
-                
+            cha.append('true')
         
-    return notas
+    return [cha]
     
     
     
@@ -212,11 +218,11 @@ bg_notas = pygame.image.load('play _notas.png')
 bg_notas = pygame.transform.scale(bg_notas, (420, 10000))
 tela1 = True
 intro = True
+
 #------------------------------------------
 # Criacao das funcoes:
 def tela_inicial():
     win.blit(bg, [0,0])   
-
     
     botao_play("Play",740,235,325,140,white,bright_green,"musica")
     botao_calibrar("Calibrar",140,195,230,45,cor_certa,bright_green,"calibrar")
@@ -231,74 +237,249 @@ def tela_calibrar():
     intro = True   
     notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
               'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86], 'A4': [416, 440, 465]}        
-    a = 0
-    
+ #   a = 0
+    x=black
+    correto0 = True
+    correto1 = True
+    correto2 = True
+    correto3 = True
+    correto4 = True
+    correto5 = True
+    correto6 = True
+        
+   # Contragem regressiva
 
     while intro:
         win.fill(white)
-        if a == 0:
-            pygame.display.update()
-            smallText = pygame.font.Font("freesansbold.ttf",100)
-            textSurf, textRect = text_objects("3", smallText)
-            textRect.center = ( (1080/4), ((720/2)-30) )
-            win.blit(textSurf, textRect)
-            pygame.display.update()
-            time.sleep(1)
-            
-            smallText = pygame.font.Font("freesansbold.ttf",100)
-            textSurf, textRect = text_objects("2", smallText)
-            textRect.center = ( (1080/2), ((720/2)-30)  )
-            win.blit(textSurf, textRect)
-            pygame.display.update()
-            time.sleep(1)
-            
-            
-            smallText = pygame.font.Font("freesansbold.ttf",100)
-            textSurf, textRect = text_objects("1", smallText)
-            textRect.center = ( (1080-(1080/4)), ((720/2)-30)  )
-            win.blit(textSurf, textRect)
-            pygame.display.update()
-            time.sleep(1)
-            a = 1
         
-       # 'Notas a serem calibradas:'
-       # ' E4    B3    G3   D3    A2     E2    A4'
-        while intro:
+        titulo_calibrar = pygame.font.SysFont("Arial",45)
+        titulo_calibrar, TextRect = text_objects("Após a contagem toque a corda da tela para calibrar o instrumento!", titulo_calibrar)
+        TextRect.center = ((500),(30))
+        win.blit(titulo_calibrar, TextRect)
+        
+        pygame.display.update()
+        smallText = pygame.font.Font("freesansbold.ttf",100)
+        textSurf, textRect = text_objects("3", smallText)
+        textRect.center = ( (1080/4), ((720/2)-30) )
+        win.blit(textSurf, textRect)
+        pygame.display.update()
+        time.sleep(1)
+        
+        smallText = pygame.font.Font("freesansbold.ttf",100)
+        textSurf, textRect = text_objects("2", smallText)
+        textRect.center = ( (1080/2), ((720/2)-30)  )
+        win.blit(textSurf, textRect)
+        pygame.display.update()
+        time.sleep(1)
+        
+        
+        smallText = pygame.font.Font("freesansbold.ttf",100)
+        textSurf, textRect = text_objects("1", smallText)
+        textRect.center = ( (1080-(1080/4)), ((720/2)-30)  )
+        win.blit(textSurf, textRect)
+        pygame.display.update()
+        time.sleep(1)
+
+        
+# E4 ------------------------------------------------------------------------------------        
+        while correto0 == True:
             win.fill(white)
-            
             for event in pygame.event.get():
-                  if event.type == pygame.QUIT:
-                      finish = True
-            
-           
+                if event.type == pygame.QUIT:
+                    finish = True
+          
             titulo_calibrar = pygame.font.SysFont("Arial",45)
-            titulo_calibrar, TextRect = text_objects("Toque uma corda de cada vez para calibrar sua guitarra!", titulo_calibrar)
+            titulo_calibrar, TextRect = text_objects("Começando com o E4!", titulo_calibrar)
             TextRect.center = ((500),(30))
             win.blit(titulo_calibrar, TextRect)
             
-            smallText = pygame.font.Font("freesansbold.ttf",160)
-            textSurf, textRect = text_objects("E4", smallText)
-            textRect.center = ( (1080/2), (720/2) )
-            win.blit(textSurf, textRect)
-              
-            botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
-           
-            grava_som("nao_apagar", 1)
-        
-            notas = analisa_som ("nao_apagar", notas_freq)
-            
-            if ['E4'] in notas:
-                print('BOA FEROZ')
-                textSurf, textRect = text_objects("E5", smallText)
-                
-           
-           
+            myfont=pygame.font.SysFont("monospace",150)
+            label=myfont.render("E4",1,x)
+            win.blit(label,(520,360))
             pygame.display.update()
-            clock.tick(60)
-            
-        
-    tela_inicial()
+        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+       
+            grava_som("nao_apagar", 5)
     
+            notas = analisa_som ("nao_apagar", notas_freq, ['E4'])
+            
+            print(notas)
+        
+            if 'true' in notas[0]:
+                print('BOA FEROZ')
+                x=green
+                pygame.display.update()
+                correto0 = False
+                
+            pygame.display.update()   
+#A2 ---------------------------------------------------------------------------------------            
+        while correto1 == True:
+            win.fill(white)
+            x = black
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finish = True
+          
+            titulo_calibrar = pygame.font.SysFont("Arial",45)
+            titulo_calibrar, TextRect = text_objects("Agora é o A2!", titulo_calibrar)
+            TextRect.center = ((500),(30))
+            win.blit(titulo_calibrar, TextRect)
+            
+            myfont=pygame.font.SysFont("monospace",150)
+            label=myfont.render("A2",1,x)
+            win.blit(label,(520,360))
+            pygame.display.update()
+        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+       
+            grava_som("nao_apagar", 5)
+    
+            notas = analisa_som ("nao_apagar", notas_freq, ["A2"])
+        
+            if ['A2'] in notas[0]:
+                print('caralhuda')
+                x=green
+                pygame.display.update()
+                correto1 = False
+                
+            pygame.display.update()
+            
+#B3 ----------------------------------------------------------------------------------            
+        while correto2 == True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finish = True
+          
+            titulo_calibrar = pygame.font.SysFont("Arial",45)
+            titulo_calibrar, TextRect = text_objects("Continuando com B3!", titulo_calibrar)
+            TextRect.center = ((500),(30))
+            win.blit(titulo_calibrar, TextRect)
+            
+            myfont=pygame.font.SysFont("monospace",150)
+            label=myfont.render("B3",1,x)
+            win.blit(label,(520,360))
+          
+        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+       
+            grava_som("nao_apagar", 5)
+    
+            notas = analisa_som ("nao_apagar", notas_freq, ['B3'])
+        
+            if ['B3'] in notas[0]:
+            #print('BOA FEROZ')
+                x=green
+                correto2 = False
+            
+#A4 ------------------------------------------------------------------------------
+        while correto3 == True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finish = True
+          
+            titulo_calibrar = pygame.font.SysFont("Arial",45)
+            titulo_calibrar, TextRect = text_objects("Continuando com o A4!", titulo_calibrar)
+            TextRect.center = ((500),(30))
+            win.blit(titulo_calibrar, TextRect)
+            
+            myfont=pygame.font.SysFont("monospace",150)
+            label=myfont.render("A4",1,x)
+            win.blit(label,(520,360))
+          
+        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+       
+            grava_som("nao_apagar", 5)
+    
+            notas = analisa_som ("nao_apagar", notas_freq, ['A4'])
+        
+            if ['A4'] in notas[0]:
+#            print('BOA FEROZ')
+                x=green
+                correto3 = False
+            
+#G3 -------------------------------------------------------------------------------
+        while correto4 == True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finish = True
+          
+            titulo_calibrar = pygame.font.SysFont("Arial",45)
+            titulo_calibrar, TextRect = text_objects("Continuando com o G3!", titulo_calibrar)
+            TextRect.center = ((500),(30))
+            win.blit(titulo_calibrar, TextRect)
+            
+            myfont=pygame.font.SysFont("monospace",150)
+            label=myfont.render("G3",1,x)
+            win.blit(label,(520,360))
+          
+        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+       
+            grava_som("nao_apagar", 5)
+    
+            notas = analisa_som ("nao_apagar", notas_freq, ['G3'])
+        
+            if ['G3'] in notas[0]:
+           # print('BOA FEROZ')
+                x=green
+                correto4 = False
+            
+#D3 -------------------------------------------------------------------------------
+        while correto5 == True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finish = True
+          
+            titulo_calibrar = pygame.font.SysFont("Arial",45)
+            titulo_calibrar, TextRect = text_objects("Começando com o D3!", titulo_calibrar)
+            TextRect.center = ((500),(30))
+            win.blit(titulo_calibrar, TextRect)
+            
+            myfont=pygame.font.SysFont("monospace",150)
+            label=myfont.render("D3",1,x)
+            win.blit(label,(520,360))
+          
+        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+       
+            grava_som("nao_apagar", 5)
+    
+            notas = analisa_som ("nao_apagar", notas_freq, ['D3'])
+        
+            if ['D3'] in notas[0]:
+            #print('BOA FEROZ')
+                x=green
+                correto5 = False           
+            
+#E2 -------------------------------------------------------------------------------
+        while correto6 == True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    finish = True
+          
+            titulo_calibrar = pygame.font.SysFont("Arial",45)
+            titulo_calibrar, TextRect = text_objects("Por fim o E2!", titulo_calibrar)
+            TextRect.center = ((500),(30))
+            win.blit(titulo_calibrar, TextRect)
+            
+            myfont=pygame.font.SysFont("monospace",150)
+            label=myfont.render("E2",1,x)
+            win.blit(label,(520,360))
+          
+        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+       
+            grava_som("nao_apagar", 5)
+    
+            notas = analisa_som ("nao_apagar", notas_freq, ["E2"])
+        
+            if ['E2'] in notas[0]:
+            #print('BOA FEROZ')
+                x=green
+                correto6 = False
+                
+                
+        pygame.display.update()
+        clock.tick(60)
+        
+    
+#tela_inicial()
+
 def tela_play():
     global intro
     intro = True
@@ -406,7 +587,7 @@ tamanho = (1080, 720)
 display_width = 1080
 display_height = 720
 win = pygame.display.set_mode(tamanho)
-porra = pygame.display.set_mode(tamanho)
+#porra = pygame.display.set_mode(tamanho)
  
 pygame.display.set_caption("Guitat Teacher")
  
