@@ -253,7 +253,7 @@ def tela_calibrar():
         win.fill(white)
         
         titulo_calibrar = pygame.font.SysFont("Arial",45)
-        titulo_calibrar, TextRect = text_objects("Após a contagem toque a corda da tela para calibrar o instrumento!", titulo_calibrar)
+        titulo_calibrar, TextRect = text_objects("Após a contagem toque a corda da tela!", titulo_calibrar)
         TextRect.center = ((500),(30))
         win.blit(titulo_calibrar, TextRect)
         
@@ -299,16 +299,16 @@ def tela_calibrar():
             pygame.display.update()
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
     
             notas = analisa_som ("nao_apagar", notas_freq, ['E4'])
             
             print(notas)
         
-            if 'true' in notas[0]:
-                print('BOA FEROZ')
-                x=green
+            if 'true' in notas[0]: 
+                x = green
                 pygame.display.update()
+                time.sleep(3)
                 correto0 = False
                 
             pygame.display.update()   
@@ -331,12 +331,14 @@ def tela_calibrar():
             pygame.display.update()
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
     
             notas = analisa_som ("nao_apagar", notas_freq, ["A2"])
         
-            if ['A2'] in notas[0]:
+            if 'true' in notas[0]:
+                
                 print('caralhuda')
+                
                 x=green
                 pygame.display.update()
                 correto1 = False
@@ -345,6 +347,8 @@ def tela_calibrar():
             
 #B3 ----------------------------------------------------------------------------------            
         while correto2 == True:
+            win.fill(white)
+            x = black
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     finish = True
@@ -360,7 +364,7 @@ def tela_calibrar():
           
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
     
             notas = analisa_som ("nao_apagar", notas_freq, ['B3'])
         
@@ -374,7 +378,7 @@ def tela_calibrar():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     finish = True
-          
+        
             titulo_calibrar = pygame.font.SysFont("Arial",45)
             titulo_calibrar, TextRect = text_objects("Continuando com o A4!", titulo_calibrar)
             TextRect.center = ((500),(30))
@@ -386,7 +390,7 @@ def tela_calibrar():
           
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
     
             notas = analisa_som ("nao_apagar", notas_freq, ['A4'])
         
@@ -412,7 +416,7 @@ def tela_calibrar():
           
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
     
             notas = analisa_som ("nao_apagar", notas_freq, ['G3'])
         
@@ -438,7 +442,7 @@ def tela_calibrar():
           
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
     
             notas = analisa_som ("nao_apagar", notas_freq, ['D3'])
         
@@ -464,7 +468,7 @@ def tela_calibrar():
           
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
-            grava_som("nao_apagar", 5)
+            grava_som("nao_apagar", 1)
     
             notas = analisa_som ("nao_apagar", notas_freq, ["E2"])
         
