@@ -213,8 +213,8 @@ bright_green = (0,255,0)
 cor_certa = (117,193,189)
 cor_escura = (117,189,230)
 
-bg = pygame.image.load('guitar.jpg')
-bg_play = pygame.image.load('play.png')
+bg = pygame.image.load('tela inicial.png')
+bg_play = pygame.image.load('tela play.png')
 bg_notas = pygame.image.load('play _notas.png')
 bg_notas = pygame.transform.scale(bg_notas, (420, 10000))
 tela1 = True
@@ -225,10 +225,10 @@ intro = True
 def tela_inicial():
     win.blit(bg, [0,0])   
     
-    botao_play("Play",740,235,325,140,white,bright_green,"musica")
-    botao_calibrar("Calibrar",140,195,230,45,cor_certa,bright_green,"calibrar")
+    botao_play(" ",660,490,360,180,"musica")
+    botao_calibrar_ou_voltar("Calibrar",140,195,230,45,red,white,"calibrar")
     
-    play_metal(" ",400,195,230,45,red)
+    play_metal(" ",350,330,100,45)
     pygame.display.update()
     
     clock.tick(60)
@@ -467,14 +467,14 @@ def tela_play():
                 pygame.quit()
                 quit()
         win.blit(bg_play, [0,0])   
-        win.blit(bg_notas, [0,600])         
+        #win.blit(bg_notas, [0,600])         
         #win.fill(white)
         #titulo_calibrar = pygame.font.SysFont("Arial",60)
         #titulo_calibrar, TextRect = text_objects("Let's do some rock!!!", titulo_calibrar)
         #TextRect.center = ((500),(30))
         #win.blit(titulo_calibrar, TextRect)
         
-        botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+        botao_calibrar_ou_voltar("Voltar",40,595,230,45,red,white,"voltar")
        
         pygame.display.update()
         clock.tick(60)
@@ -485,77 +485,48 @@ def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
      
-def botao_play(msg,x,y,w,h,ic,ac,action=None):
+def botao_play(msg,x,y,w,h,action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     
-    if 740+325 > mouse[0] > 740 and 235+140 > mouse[1] > 235:
-        pygame.draw.rect(win,cor_escura,(740,235,325,140))
-        
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:    
         if click[0]==1 and action=="musica":
             tela_play()
         
-    else:
-        pygame.draw.rect(win, white,(740,235,325,140))
-        
-    smallText = pygame.font.Font("freesansbold.ttf",50)
-    textSurf, textRect = text_objects("Play", smallText)
-    textRect.center = ( (740+(325/2)), (235+(140/2)) )
-    win.blit(textSurf, textRect)
- 
    
-def botao_calibrar(msg,x,y,w,h,ic,ac,action=None):   
+def botao_calibrar_ou_voltar(msg,x,y,w,h,cor1,cor2,action=None):   
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    ' A4'
-    if 140+230 > mouse[0] > 140 and 195+45 > mouse[1] > 195:
-        pygame.draw.rect(win, cor_escura,(140,195,230,45))
-        
+
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:  
+        pygame.draw.rect(win, cor1,(x,y,w,h))
         if click[0]==1 and action=="calibrar":
             tela_calibrar()
-            
-    else:
-        pygame.draw.rect(win, cor_certa,(140,195,230,45))
-        
-    smallText = pygame.font.Font("freesansbold.ttf",20)
-    textSurf, textRect = text_objects("Calibrar", smallText)
-    textRect.center = ( (140+(230/2)), (195+(45/2)) )
-    win.blit(textSurf, textRect)
-    
-    
-    
-def botao_voltar(msg,x,y,w,h,ic,ac,action=None):   
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-        
-    if 740+230 > mouse[0] > 740 and 595+45 > mouse[1] > 595:
-        pygame.draw.rect(win, red,(740,595,230,45))
-        
         if click[0]==1 and action=="voltar":
             global intro
             intro = False
             print('xuxu beleza')
-            #tela_inicial()
-            
-    else:
-        pygame.draw.rect(win, cor_certa,(740,595,230,45))
+
+    else: 
+        pygame.draw.rect(win, cor2,(x,y,w,h))
         
     smallText = pygame.font.Font("freesansbold.ttf",20)
-    textSurf, textRect = text_objects("Voltar", smallText)
-    textRect.center = ( (740+(230/2)), (595+(45/2)) )
-    win.blit(textSurf, textRect)
-    
+    textSurf, textRect = text_objects(msg, smallText)
+    textRect.center = ( (x+(w/2)), (y+(h/2)) )
+    win.blit(textSurf, textRect)   
+  
 
-def play_metal(msg,x,y,w,h,ic):
+def play_metal(msg,x,y,w,h):
     mouse = pygame.mouse.get_pos()
     #click = pygame.mouse.get_pressed()
 
-    if 280+130 > mouse[0] > 200 and 500+80 > mouse[1] > 500:
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+#             pygame.draw.rect(win, red,(x,y,w,h))
 #            pygame.init()
 #            song = pygame.mixer.Sound('')
 #            clock = pygame.time.Clock()
 #            song.play()
-        print('susu')
+             print('susu')
 
         
 #---------------------------------------    
