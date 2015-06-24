@@ -175,33 +175,25 @@ notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
 
 
 
+#-----------------------------------------------------------------------------------------------------------------------------
 
+pygame.init()
+ 
+tamanho = (1080, 720)
+display_width = 1080
+display_height = 720
+win = pygame.display.set_mode(tamanho)
+#porra = pygame.display.set_mode(tamanho)
+ 
+pygame.display.set_caption("Guitat Teacher")
+ 
+# Loop until the user clicks the close button.
+finish = False
+ 
+# Used to manage how fast the screen updates
+clock = pygame.time.Clock()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#----------------------------------------------------------------------------------------------------------------
 # Define some colors
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -215,7 +207,16 @@ cor_escura = (117,189,230)
 
 bg = pygame.image.load('tela inicial.png')
 bg_play = pygame.image.load('tela play.png')
+
+a2 =  pygame.image.load('A2.png')
+e2 =  pygame.image.load('E2.png')
+e4 =  pygame.image.load('E4.png')
+g3 =  pygame.image.load('G3.png')
+d3 =  pygame.image.load('D3.png')
+b3 =  pygame.image.load('B3.png')
+
 bg_notas = pygame.image.load('play _notas.png')
+
 bg_notas = pygame.transform.scale(bg_notas, (420, 10000))
 tela1 = True
 intro = True
@@ -237,56 +238,53 @@ def tela_calibrar():
     global intro
     intro = True   
     notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
-              'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86], 'A4': [416, 440, 465]}
+              'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86]}
     correto0 = True
     correto1 = True
     correto2 = True
-    correto3 = True
     correto4 = True
     correto5 = True
     correto6 = True
         
    # Contragem regressiva
     while intro:
-        win.fill(white)
+        win.fill(black)
         
-        titulo_calibrar = pygame.font.SysFont("Arial",45)
-        titulo_calibrar, TextRect = text_objects("Após a contagem toque a corda da tela!", titulo_calibrar)
-        TextRect.center = ((500),(30))
-        win.blit(titulo_calibrar, TextRect)
+        myfont=pygame.font.SysFont("monospace",30)
+        label=myfont.render('Após a contagem toque a tecla da tela!!!',1,white)
+        win.blit(label,(100,30))
         
         pygame.display.update()
-        smallText = pygame.font.Font("freesansbold.ttf",100)
-        textSurf, textRect = text_objects("3", smallText)
-        textRect.center = ( (1080/4), ((720/2)-30) )
-        win.blit(textSurf, textRect)
+        myfont=pygame.font.SysFont("monospace",100)
+        label=myfont.render('3',1,white)
+        win.blit(label,((1080/4), ((720/2)-30) ))
         pygame.display.update()
         time.sleep(1)
         
-        smallText = pygame.font.Font("freesansbold.ttf",100)
-        textSurf, textRect = text_objects("2", smallText)
-        textRect.center = ( (1080/2), ((720/2)-30)  )
-        win.blit(textSurf, textRect)
+        pygame.display.update()
+        myfont=pygame.font.SysFont("monospace",100)
+        label=myfont.render('2',1,white)
+        win.blit(label,((1080/2), ((720/2)-30) ))
         pygame.display.update()
         time.sleep(1)
         
         
-        smallText = pygame.font.Font("freesansbold.ttf",100)
-        textSurf, textRect = text_objects("1", smallText)
-        textRect.center = ( (1080-(1080/4)), ((720/2)-30)  )
-        win.blit(textSurf, textRect)
+        pygame.display.update()
+        myfont=pygame.font.SysFont("monospace",100)
+        label=myfont.render('1',1,white)
+        win.blit(label,((1080-(1080/4)), ((720/2)-30) ))
         pygame.display.update()
         time.sleep(1)
 
         
 # E4 ------------------------------------------------------------------------------------        
         while correto0 == True:
-            win.fill(white)
+            win.blit(e4, [0,0])
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     finish = True
           
-            texto ("Começando com o E4" ,"E4",black)
+            texto (" " ,"E4",white)
         #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
        
             grava_som("nao_apagar", 1)
@@ -296,8 +294,8 @@ def tela_calibrar():
             print(notas)
         
             if 'true' in notas[0]: 
-                win.fill(white)
-                texto ("Começando com o E4" ,"E4",green)
+                win.blit(e4, [0,0])
+                texto (" " ,"E4",green)
                 pygame.display.update()
                 time.sleep(3)
                 correto0 = False
@@ -305,15 +303,13 @@ def tela_calibrar():
             pygame.display.update()   
 #A2 ---------------------------------------------------------------------------------------            
 #        while correto1 == True:
-#            win.fill(white)
+#            win.blit(a2, [0,0])
 #            for event in pygame.event.get():
 #                if event.type == pygame.QUIT:
 #                    finish = True
 #          
-#            texto ("Continuando com A2" ,"A2",black)
-#        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
-#            
-#            
+#            texto (" " ,"A2",white)
+#
 #            
 #            grava_som("nao_apagar2", 1)
 #    
@@ -322,140 +318,132 @@ def tela_calibrar():
 #            print(notas1)  
 #        
 #            if 'true' in notas1[0]:
-#                win.fill(white)                      
-#                texto ("Começando com o A2" ,"A2",green)
+#                win.blit(a2, [0,0])                      
+#                texto (" " ,"A2",green)
 #                pygame.display.update()
 #                time.sleep(3)
 #                correto1 = False
 #                
 #            pygame.display.update()           
 #B3 ----------------------------------------------------------------------------------            
-        while correto2 == True:
-            win.fill(white)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    finish = True
-          
-            texto ("Continuando com B3" ,"B3",black)
-          
-        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
-       
-            grava_som("nao_apagar", 1)
-    
-            notas = analisa_som ("nao_apagar", notas_freq, ['B3'])
-        
-            if 'true' in notas[0]:
-                win.fill(white)
-                texto ("Começando com o B3" ,"B3",green)
-                pygame.display.update()
-                time.sleep(3)
-                correto2 = False
-            pygame.display.update() 
-#A4 ------------------------------------------------------------------------------
-        while correto3 == True:
-            win.fill(white)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    finish = True
-        
-            texto ("Continuando com A4" ,"A4",black)
-          
-        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
-       
-            grava_som("nao_apagar", 1)
-    
-            notas = analisa_som ("nao_apagar", notas_freq, ['A4'])
-        
-            if 'true' in notas[0]:
-                win.fill(white)
-                texto ("Continuando com A4" ,"A4",green)
-                pygame.display.update()
-                time.sleep(3)             
-                correto3 = False
-            pygame.display.update()  
-#G3 -------------------------------------------------------------------------------
-        while correto4 == True:
-            win.fill(white)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    finish = True
-          
-            texto ("Continuando com G3" ,"G3",black)
-            
-        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
-       
-            grava_som("nao_apagar", 1)
-    
-            notas = analisa_som ("nao_apagar", notas_freq, ['G3'])
-        
-            if 'true' in notas[0]:
-                win.fill(white)
-                texto ("Continuando com G3" ,"G3",green)
-                pygame.display.update()
-                time.sleep(3)             
-                correto4 = False
-            pygame.display.update() 
-#D3 -------------------------------------------------------------------------------
-        while correto5 == True:
-            win.fill(white)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    finish = True
-           
-            texto ("Continuando com o D3" ,"D3",black)
+#        while correto2 == True:
+#            win.blit(b3, [0,0])
+#            for event in pygame.event.get():
+#                if event.type == pygame.QUIT:
+#                    finish = True
+#          
+#            texto (" " ,"B3",white)
+#          
+#        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+#       
+#            grava_som("nao_apagar", 1)
+#    
+#            notas = analisa_som ("nao_apagar", notas_freq, ['B3'])
+#        
+#            if 'true' in notas[0]:
+#                win.blit(b3, [0,0])
+#                texto (" " ,"B3",green)
+#                pygame.display.update()
+#                time.sleep(3)
+#                correto2 = False
+#            pygame.display.update() 
 
-          
-        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
-       
-            grava_som("nao_apagar", 1)
-    
-            notas = analisa_som ("nao_apagar", notas_freq, ['D3'])
-        
-            if 'true' in notas[0]:
-                win.fill(white)
-                texto ("Continuando com D3" ,"D3",green)
-                pygame.display.update()
-                time.sleep(3)             
-                correto5 = False
-            pygame.display.update()         
+#G3 -------------------------------------------------------------------------------
+#        while correto4 == True:
+#            win.blit(g3, [0,0])
+#            for event in pygame.event.get():
+#                if event.type == pygame.QUIT:
+#                    finish = True
+#          
+#            texto (" " ,"G3",white)
+#            
+#        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+#       
+#            grava_som("nao_apagar", 1)
+#    
+#            notas = analisa_som ("nao_apagar", notas_freq, ['G3'])
+#        
+#            if 'true' in notas[0]:
+#                win.blit(g3, [0,0])
+#                texto (" " ,"G3",green)
+#                pygame.display.update()
+#                time.sleep(3)             
+#                correto4 = False
+#            pygame.display.update() 
+#D3 -------------------------------------------------------------------------------
+#        while correto5 == True:
+#            win.blit(d3, [0,0])
+#            for event in pygame.event.get():
+#                if event.type == pygame.QUIT:
+#                    finish = True
+#           
+#            texto (" " ,"D3",white)
+#
+#          
+#        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+#       
+#            grava_som("nao_apagar", 1)
+#    
+#            notas = analisa_som ("nao_apagar", notas_freq, ['D3'])
+#        
+#            if 'true' in notas[0]:
+#                win.blit(d3, [0,0])
+#                texto (" " ,"D3",green)
+#                pygame.display.update()
+#                time.sleep(3)             
+#                correto5 = False
+#            pygame.display.update()         
             
 #E2 -------------------------------------------------------------------------------
-        while correto6 == True:
-            win.fill(white)           
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    finish = True
-          
-            texto ("Continuando com E2" ,"E2",black)
-          
-        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
-       
-            grava_som("nao_apagar", 1)
-    
-            notas = analisa_som ("nao_apagar", notas_freq, ["E2"])
-        
-            if 'true' in notas[0]:
-                win.fill(white)
-                texto ("Continuando com E2" ,"E2",green)
-                pygame.display.update()
-                time.sleep(3)             
-                correto6 = False
-            pygame.display.update()
+#        while correto6 == True:
+#            win.blit(e2, [0,0])          
+#            for event in pygame.event.get():
+#                if event.type == pygame.QUIT:
+#                    finish = True
+#          
+#            texto (" " ,"E2",white)
+#          
+#        #botao_voltar("Voltar",740,595,230,45,red,bright_green,"voltar")
+#       
+#            grava_som("nao_apagar", 1)
+#    
+#            notas = analisa_som ("nao_apagar", notas_freq, ["E2"])
+#        
+#            if 'true' in notas[0]:
+#                win.blit(e2, [0,0])
+#                texto (" " ,"E2",green)
+#                pygame.display.update()
+#                time.sleep(3)             
+#                correto6 = False
+#            pygame.display.update()
             
+        win.fill(black)
+        pygame.display.update()
+        myfont=pygame.font.SysFont("monospace",50)
+        label=myfont.render('Parabens!',1,white)
+        win.blit(label,((150), ((720/2)-70) ))
+        pygame.display.update()
+        time.sleep(3)
+        myfont=pygame.font.SysFont("monospace",50)
+        label=myfont.render('Sua guitarra foi calibrada!',1,white)
+        win.blit(label,((100), ((720/2)-10) ))
+        pygame.display.update()
+        time.sleep(3)
+        
         clock.tick(60)
         
-    
-#tela_inicial()
+        break
+    tela_inicial()
 
 def texto (texto1,texto2,x):
     titulo_calibrar = pygame.font.SysFont("Arial",45)
     titulo_calibrar, TextRect = text_objects(texto1, titulo_calibrar)
-    TextRect.center = ((500),(30))
+    TextRect.center = ((300),(30))
     win.blit(titulo_calibrar, TextRect)
     
-    myfont=pygame.font.SysFont("monospace",150)
+    myfont=pygame.font.SysFont("monospace",200)
     label=myfont.render(texto2,1,x)
-    win.blit(label,(520,360))
+    win.blit(label,(520,30))
     pygame.display.update()
     
 def tela_play():
@@ -529,22 +517,7 @@ def play_metal(msg,x,y,w,h):
              print('susu')
 
         
-#---------------------------------------    
-pygame.init()
- 
-tamanho = (1080, 720)
-display_width = 1080
-display_height = 720
-win = pygame.display.set_mode(tamanho)
-#porra = pygame.display.set_mode(tamanho)
- 
-pygame.display.set_caption("Guitat Teacher")
- 
-# Loop until the user clicks the close button.
-finish = False
- 
-# Used to manage how fast the screen updates
-clock = pygame.time.Clock()
+
 
 
 
