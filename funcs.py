@@ -166,58 +166,38 @@ def analisa_som (NOME, notas_freq, nota_desejada):
         if notas[n] == nota_desejada and notas[n] == notas[n+1] and notas[n] == notas[n-1]:
                 
             cha.append('true')
-            
-    print(cha)            
         
     return [cha]
     
     
     
 notas_freq = {'E4': [312,329,348],'B3': [234,247,261],'G3': [185,196,208],
-              'D3': [140,147,155],'A2': [105,110,116],'E2': [74,82,90], 'A4': [416, 440, 465]}
+              'D3': [140,147,155],'A2': [105,110,116],'E2': [78,82,86], 'A4': [416, 440, 465]}
 
 
 #
 #print('inicio')
-##
-#grava_som ('feroz', 1)
 #
-#print('Banana')
-
+#grava_som ('feroz', 3)
+#
+#
 #banana =  analisa_som('feroz', notas_freq, ['B3'])
-
-
+#
+#
 #print('Banana é: ', banana)
-
-
+#
+#
 #if 'true' in banana[0]:
 #    print('matheus gatinho')
+#    
+#    
+#if __name__ == '__main__':
+#    analisa_som ('feroz2', 1)
+#    p = Process(target = grava_som, args = ('feroz', 1))
+#    p.start()
+#    p.join()
 
-#name = ''
-
-rod = 0
-
-while rod < 10:
     
-    nome = "feroz"
-    nome2 = ''
-    
-    if rod > 0:
-        nome2 = nome + str(rod)
-        
-    name = "feroz"
-    
-    if rod <= 8:
-    
-        if __name__ == '__main__':
-            analisa_som (nome2,notas_freq, 'E4')
-            p = Process(target = grava_som, args = ('feroz', 1))
-            p.start()
-    
-            
-    rod += 1
-    print('batata')
-        
     
 print('done')    
     
@@ -226,36 +206,30 @@ print('done')
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 """
 Funções do Pygame
 """
 
 
-tamanho = (1080, 720)
-display_width = 1080
+tamanho = (1280, 720)
+display_width = 1280
 display_height = 720
 win = pygame.display.set_mode(tamanho)
 #porra = pygame.display.set_mode(tamanho)
@@ -304,7 +278,7 @@ def tela_inicial():
     win.blit(bg, [0,0])   
     
     botao_play(" ",660,490,360,180,"musica")
-    botao_calibrar_ou_voltar("Calibrar",150,555,230,45,red,white,"calibrar")
+    botao_calibrar_ou_voltar("Calibrar",100,635,230,45,white,"calibrar")
     
     play_metal(" ",350,330,100,45)
     pygame.display.update()
@@ -539,7 +513,7 @@ def tela_play():
         #TextRect.center = ((500),(30))
         #win.blit(titulo_calibrar, TextRect)
         
-        botao_calibrar_ou_voltar("Voltar",40,595,230,45,red,white,"voltar")
+        botao_calibrar_ou_voltar("Voltar",40,595,230,45,white,"voltar")
        
         pygame.display.update()
         clock.tick(60)
@@ -559,12 +533,14 @@ def botao_play(msg,x,y,w,h,action=None):
             tela_play()
         
    
-def botao_calibrar_ou_voltar(msg,x,y,w,h,cor1,cor2,action=None):   
+def botao_calibrar_ou_voltar(msg,x,y,w,h,cor2,action=None):   
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
 
-    if x+w > mouse[0] > x and y+h > mouse[1] > y:  
-        pygame.draw.rect(win, cor1,(x,y,w,h))
+    if x+w > mouse[0] > x and y+h > mouse[1] > y: 
+        myfont=pygame.font.SysFont("monospace",40)
+        label=myfont.render(msg,1,cor2)
+        win.blit(label,((x+(w/2)), (y+(h/2))))
         if click[0]==1 and action=="calibrar":
             tela_calibrar()
         if click[0]==1 and action=="voltar":
@@ -573,12 +549,15 @@ def botao_calibrar_ou_voltar(msg,x,y,w,h,cor1,cor2,action=None):
             print('xuxu beleza')
 
     else: 
-        pygame.draw.rect(win, cor2,(x,y,w,h))
+        myfont=pygame.font.SysFont("monospace",40)
+        label=myfont.render(msg,1,cor2)
+        win.blit(label,((x+(w/2)), (y+(h/2))))
         
-    smallText = pygame.font.Font("freesansbold.ttf",20)
-    textSurf, textRect = text_objects(msg, smallText)
-    textRect.center = ( (x+(w/2)), (y+(h/2)) )
-    win.blit(textSurf, textRect)   
+        
+#    smallText = pygame.font.Font("freesansbold.ttf",20)
+#    textSurf, textRect = text_objects(msg, smallText)
+#    textRect.center = ( (x+(w/2)), (y+(h/2)) )
+#    win.blit(textSurf, textRect)   
   
 
 def play_metal(msg,x,y,w,h):
@@ -593,4 +572,5 @@ def play_metal(msg,x,y,w,h):
 #            song.play()
              print('susu')    
     
+     
     

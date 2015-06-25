@@ -14,12 +14,17 @@ from funcs import*
 #-----------------------------------------------------------------------------------------------------------------------------
 
 pygame.init()
+
 # -------- Programa rodando: -----------
 while not finish:    
+
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             finish = True
+
     tela_inicial()
+    
 pygame.quit()
 
 
