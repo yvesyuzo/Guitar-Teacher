@@ -565,12 +565,11 @@ def play_metal(msg,x,y,w,h):
     #click = pygame.mouse.get_pressed()
 
     if x+w > mouse[0] > x and y+h > mouse[1] > y:
-#             pygame.draw.rect(win, red,(x,y,w,h))
-#            pygame.init()
-#            song = pygame.mixer.Sound('')
-#            clock = pygame.time.Clock()
-#            song.play()
-             print('susu')    
+        pygame.init()
+        song = pygame.mixer.Sound('playmetal.wav')
+        clock = pygame.time.Clock()
+        song.play()
+        print('susu')    
     
      
     
