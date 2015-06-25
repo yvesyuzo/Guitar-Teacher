@@ -12,6 +12,7 @@ Created on Wed May 13 07:28:37 2015
 @author: Yves Yuzo
 """
 
+<<<<<<< Updated upstream
 
 import pyaudio
 import wave
@@ -19,6 +20,8 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 
+=======
+>>>>>>> Stashed changes
 
 testd = []
 
